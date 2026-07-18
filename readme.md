@@ -12,8 +12,13 @@ the customer never said. Every claim is verified from extra's own store
 ## Run it
 
 ```bash
+docker build -t extra-lm .
 pip install requests
-# .env: model provider keys + LM_API_KEY + LM_TENANT
+cp .env.example .env
+# fill in .env:
+#   OPENAI_API_KEY  — your OpenRouter key (any OpenAI-compatible provider works)
+#   LM_API_KEY      — create a free key at https://leapmemory.com
+#   LM_TENANT       — any name; the demo replaces it with a fresh one per run
 python3 demo.py
 ```
 
