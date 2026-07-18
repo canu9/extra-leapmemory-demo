@@ -17,9 +17,9 @@ pip install requests
 python3 demo.py
 ```
 
-The demo is self-resetting: on every start it hard-deletes and re-provisions
-its LeapMemory tenant, and clears extra's `chat.db`. Run it as many times as
-you like. After a run, the tenant's History and memory graph in the
+The demo is self-resetting: on every start it provisions a fresh LeapMemory
+tenant, deletes the previous run's tenant, and clears extra's `chat.db`. Run
+it as many times as you like. After a run, the tenant's History and memory graph in the
 LeapMemory dashboard contain exactly that run's story, so the transcript can
 be checked against the store.
 
