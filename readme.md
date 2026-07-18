@@ -17,7 +17,7 @@ pip install requests
 cp .env.example .env
 # fill in .env:
 #   OPENAI_API_KEY  — your OpenRouter key (any OpenAI-compatible provider works)
-#   LM_API_KEY      — create a free key at https://leapmemory.com
+#   LM_API_KEY      — sign up at https://leapmemory.com/docs/quickstart (admin key shown at signup)
 #   LM_TENANT       — any name; the demo replaces it with a fresh one per run
 python3 demo.py
 ```
