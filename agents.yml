@@ -1,0 +1,22 @@
+system:
+  name: "Acme Store Support"
+
+defaults:
+  model:
+    provider: openai
+    name: anthropic/claude-haiku-4.5
+    temperature: 0.0
+
+tools:
+  recall_customer:
+    description: "Look up what we know about this customer. Pass the customer's message word-for-word as 'query'."
+
+agents:
+  support_agent:
+    description: "Handles every customer message."
+    prompts:
+      system: "prompts/system.md"
+    tools: [recall_customer]
+
+graph:
+  support_agent:

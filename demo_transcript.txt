@@ -1,0 +1,148 @@
+
+Extra + LeapMemory · Session-Proof Memory
+Sessions die. The memory doesn't.
+
+  previous tenant 'acme_demo_2pa' hard-deleted
+  ✓ fresh tenant acme_demo_wup provisioned — memory starts empty
+  engine: extra · store: chat.db · run this as often as you like
+
+──────────────────────────────────────────────────────────────────
+  Act 1 · SAVE — five sessions, every word kept
+──────────────────────────────────────────────────────────────────
+  Each conversation is its own session. When it ends, its transcript
+  is gone. Every user turn is auto-saved to LeapMemory first.
+  No model decides what is worth keeping.
+
+  ┌ SESSION e80d5d55  1 of 5 · no history
+  │ Amit  Hi, I'm Amit. Ship all my returns to the Tel Aviv office.
+  │ Agent I don't have that preference on file yet for you, Amit. I've noted that you'd like all your returns shipped to the Tel Aviv office. I'll make sure this is recorded in your account so that future returns are directed there. Is there anything else I can help you with?
+  └ ENDED  transcript gone forever
+    ✓ saved to LeapMemory: "Hi, I'm Amit. Ship all my returns to the Tel Aviv office."
+
+  ┌ SESSION 06d20820  2 of 5 · no history
+  │ Amit  One more thing: contact me on WhatsApp only, never email.
+  │ Agent Got it! I've noted that you prefer to be contacted on WhatsApp only and never via email. I'll make sure that preference is recorded for your account so our team reaches out to you through WhatsApp going forward.
+  └ ENDED  transcript gone forever
+    ✓ saved to LeapMemory: "One more thing: contact me on WhatsApp only, never email."
+
+  ┌ SESSION c6caf4f8  3 of 5 · no history
+  │ Amit  For the invoice, my company is called Copperline Trading.
+  │ Agent Got it! I've noted that your company name is **Copperline Trading** for the invoice. I don't have this information on file yet, but I've recorded it now for your records. 
+  │       Is there anything else you'd like me to help you with regarding your invoice or order?
+  └ ENDED  transcript gone forever
+    ✓ saved to LeapMemory: "For the invoice, my company is called Copperline Trading."
+
+  ┌ SESSION d6d10aab  4 of 5 · no history
+  │ Amit  I'm mostly shopping for standing desks for the new office.
+  │ Agent I don't have any previous information on file about your standing desk preferences yet. 
+  │       I'd be happy to help you find the right standing desks for your new office! To get you the best recommendations, could you tell me a bit more about what you're looking for?
+  │       - How many desks do you need?
+  │       - What's your budget range?
+  │       - Do you have any preferences for features (like electric vs. manual adjustment, height range, desktop size, etc.)?
+  │       - Are there any specific styles or finishes you prefer?
+  │       This will help me assist you better!
+  └ ENDED  transcript gone forever
+    ✓ saved to LeapMemory: "I'm mostly shopping for standing desks for the new office."
+
+  ┌ SESSION 4809da3f  5 of 5 · no history
+  │ Amit  Please never schedule deliveries on Fridays, the office is closed.
+  │ Agent Got it! I've noted that you don't want deliveries scheduled on Fridays since your office is closed. I don't have this preference on file yet, but I'm making a note of it now. Going forward, we'll make sure to avoid scheduling any deliveries to you on Fridays. 
+  │       Is there anything else I can help you with?
+  └ ENDED  transcript gone forever
+    ✓ saved to LeapMemory: "Please never schedule deliveries on Fridays, the office is closed."
+
+
+──────────────────────────────────────────────────────────────────
+  Act 2 · EXTRACT — LeapMemory, server-side
+──────────────────────────────────────────────────────────────────
+  LeapMemory digests every saved turn in the background on its own.
+  This script is only a stopwatch: it asks Act 3's questions and
+  records when each answer becomes retrievable. No agent runs here.
+
+    ✓ contact preference   ready in 7s
+    ✓ delivery constraint  ready in 14s
+    ✓ invoice company      ready in 20s
+    ✓ returns address      ready in 27s
+    ✓ shopping interest    ready in 33s
+
+  The customer's file, in LeapMemory's own words:
+
+    LM │ The user's name is Amit.
+    LM │ User wants all returns shipped to the Tel Aviv office.
+    LM │ user prefers to be contacted on WhatsApp only.
+    LM │ user does not want to be contacted by email.
+    LM │ user is shopping for standing desks.
+    LM │ The user's company is called Copperline Trading.
+    LM │ Deliveries are made to the office.
+    LM │ The office is closed on Fridays.
+
+  The customer never said those sentences. LeapMemory wrote them.
+
+
+──────────────────────────────────────────────────────────────────
+  Act 3 · ANSWER — six fresh sessions, zero history
+──────────────────────────────────────────────────────────────────
+  The customer comes back. Every session below starts empty:
+  no transcript, nothing carried over. The only way to know the
+  answer is to ask LeapMemory. Tool calls proven from extra's chat.db.
+
+  ┌ SESSION 1ea8e876  fresh 1 of 5 · knows nothing
+  │ Amit  It's Amit. Where do my returns go?
+  │ Agent Hi Amit! According to your preferences, you should ship all your returns to the Tel Aviv office.
+  └ ENDED  knew nothing, answered right
+    ✓ answered from LeapMemory  (recall_customer proven, session 1ea8e876)
+
+  ┌ SESSION 2123749b  fresh 2 of 5 · knows nothing
+  │ Amit  How should you contact me?
+  │ Agent Based on your preferences, I should contact you on WhatsApp only. You've asked me never to email you.
+  └ ENDED  knew nothing, answered right
+    ✓ answered from LeapMemory  (recall_customer proven, session 2123749b)
+
+  ┌ SESSION efe6dfee  fresh 3 of 5 · knows nothing
+  │ Amit  What company name goes on my invoices?
+  │ Agent Your company name on your invoices is **Copperline Trading**.
+  └ ENDED  knew nothing, answered right
+    ✓ answered from LeapMemory  (recall_customer proven, session efe6dfee)
+
+  ┌ SESSION 623ae6a2  fresh 4 of 5 · knows nothing
+  │ Amit  What was I shopping for?
+  │ Agent Based on what we have on file, you were shopping for standing desks for your new office. Is there anything specific about standing desks I can help you with today?
+  └ ENDED  knew nothing, answered right
+    ✓ answered from LeapMemory  (recall_customer proven, session 623ae6a2)
+
+  ┌ SESSION 6886725c  fresh 5 of 5 · knows nothing
+  │ Amit  Any days you should avoid for my deliveries?
+  │ Agent Based on what we have on file, you should avoid **Fridays** for deliveries. Your office is closed on Fridays, so we'll make sure not to schedule any deliveries for you on that day.
+  └ ENDED  knew nothing, answered right
+    ✓ answered from LeapMemory  (recall_customer proven, session 6886725c)
+
+  ┌ SESSION 09dc6203  control · this was never said
+  │ Amit  What's my shirt size?
+  │ Agent I don't have your shirt size on file yet. Would you like to provide that information so I can save it for future reference?
+  └ ENDED  nothing on file, nothing invented
+    ✓ LeapMemory holds nothing about this — the agent said so honestly
+
+──────────────────────────────────────────────────────────────────
+  Results
+──────────────────────────────────────────────────────────────────
+
+    ✓ 5/5 turns saved automatically — no model judgment
+    ✓ 5/5 answers proven to come from LeapMemory
+    ✓ 5/5 answers correct across dead sessions
+    ✓ 0 invented details when memory was empty
+
+    ┌────────────────────────────────────────────────────────────┐
+    │                                                            │
+    │  11 sessions, all born empty. 242 seconds.                 │
+    │                                                            │
+    │  Persistent memory   facts outlive every session           │
+    │  Stateless agent     the engine carries nothing            │
+    │  Automatic saving    every turn, no model judgment         │
+    │  Honest when empty   no memory means no invention          │
+    │                                                            │
+    │  Sessions are disposable. Customers are not.               │
+    │                                                            │
+    └────────────────────────────────────────────────────────────┘
+
+    https://leapmemory.com
+

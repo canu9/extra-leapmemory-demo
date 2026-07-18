@@ -1,0 +1,6 @@
+.env
+chat.db
+.demo_tenant
+tool_debug.log
+__pycache__/
+*.pyc
